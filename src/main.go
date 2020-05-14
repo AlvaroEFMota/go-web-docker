@@ -28,7 +28,15 @@ func main(){
 func index(w http.ResponseWriter, r *http.Request){
 	count++
 	fmt.Printf("%d, %s\n",count,r.RemoteAddr)
-	tpl.ExecuteTemplate(w, "index.gohtml", nil)
+
+	d := struct{
+		Log int
+		Addr string
+	}{
+		Log: count,
+		Addr: r.RemoteAddr,
+	}
+	tpl.ExecuteTemplate(w, "index.gohtml", d)
 }
 
 func process(w http.ResponseWriter, r *http.Request){
