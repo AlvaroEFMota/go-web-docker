@@ -4,23 +4,31 @@ import (
 	"net/http"
 	"html/template"
 	"fmt"
+	"log"
 )
 
 var count int = 0
 var tpl *template.Template
 
 func init()  {
-	tpl = template.Must(template.ParseGlob("templates/*.gohtml"))
+	tpl = template.Must(template.ParseGlob("templates/*.html"))
 }
 
 func main(){
-	http.HandleFunc("/", index)
-	http.HandleFunc("/process", process)
-	http.ListenAndServe(":8080", nil)
+	fs := http.FileServer(http.Dir("./templates"))
+	http.Handle("/", fs)
+	//http.HandleFunc("/", index)
+	//http.HandleFunc("/process", process)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
 func index(w http.ResponseWriter, r *http.Request){
 	fmt.Printf("%d, %s\n",count,r.RemoteAddr)
+	/*d := struct{
+		Logo string
+	}{
+		Logo: "logo.png",
+	}*/
 	tpl.ExecuteTemplate(w, "index.gohtml", nil)
 }
 
