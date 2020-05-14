@@ -8,27 +8,26 @@ import (
 )
 
 var count int = 0
+
 var tpl *template.Template
 
 func init()  {
-	tpl = template.Must(template.ParseGlob("templates/*.html"))
+	tpl = template.Must(template.ParseGlob("templates/*.gohtml"))
 }
 
 func main(){
-	fs := http.FileServer(http.Dir("./templates"))
-	http.Handle("/", fs)
-	//http.HandleFunc("/", index)
+
+	http.Handle("/templates/build/", http.StripPrefix("/templates/build/",
+		http.FileServer(http.Dir("templates/build"))))
+
+	http.HandleFunc("/", index)
 	//http.HandleFunc("/process", process)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8081", nil))
 }
 
 func index(w http.ResponseWriter, r *http.Request){
+	count++
 	fmt.Printf("%d, %s\n",count,r.RemoteAddr)
-	/*d := struct{
-		Logo string
-	}{
-		Logo: "logo.png",
-	}*/
 	tpl.ExecuteTemplate(w, "index.gohtml", nil)
 }
 
