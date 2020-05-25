@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="templates/build/bootstrap-4.3.1-dist/css/bootstrap.min.css" />
+      <script src="templates/build/bootstrap-4.3.1-dist/js/jquery.min.js"></script>
+      <script src="templates/build/bootstrap-4.3.1-dist/js/popper.min.js"></script>
+      <script src="templates/build/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+      <title>Atomic</title>
+  </head>
+<body>
+    <p>Produtos</p>
+    {{range .}}
+        <p><h4>{{.Nome}}-{{.Preco}}-{{.Descricao}}-<a href="#">Update {{.ID}}</a>-<a href="#">Delete</a></h4></p>
+    {{end}}
+  <p>
+  <p><a href="/Produto/Create">Criar produto</a></p>
+
+</body>
+</html>
