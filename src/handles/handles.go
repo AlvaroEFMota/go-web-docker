@@ -1,6 +1,8 @@
 package handles
 
-import "fmt"
+import (
+	"fmt"
+)
 
 //Carai retorna carai
 func Carai() {

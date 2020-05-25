@@ -43,7 +43,7 @@ func main(){
 	handles.Carai()
 	http.Handle("/static/", http.StripPrefix("/static/",
 		http.FileServer(http.Dir("src/static"))))
-	http.HandleFunc("/", index)
+	http.HandleFunc("/", handles.Index)
 	http.HandleFunc("/Produto/Show", produtoShow)
 	http.HandleFunc("/Produto/Create", produtoCreateForm)
 	http.HandleFunc("/Produto/Create/Process", produtoCreateProcess)
@@ -51,7 +51,7 @@ func main(){
 }
 
 
-func index(w http.ResponseWriter, r *http.Request){
+/*func index(w http.ResponseWriter, r *http.Request){
 	count++
 	fmt.Printf("%d, %s\n",count,r.RemoteAddr)
 
@@ -63,7 +63,7 @@ func index(w http.ResponseWriter, r *http.Request){
 		Addr: r.RemoteAddr,
 	}
 	tpl.ExecuteTemplate(w, "index.gohtml", d)
-}
+}*/
 
 func produtoCreateForm(w http.ResponseWriter, r *http.Request){
 	
