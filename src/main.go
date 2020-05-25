@@ -5,16 +5,6 @@ import (
 	"net/http"
 	"github.com/AlvaroEFMota/go-web-docker/src/handles"
 )
-//Produto ,estrutura de produtos
-type Produto struct {
-	ID int32
-	Nome string
-	Preco float32
-	Descricao string
-}
-
-var count int = 0
-
 	
 func main(){
 	http.Handle("/static/", http.StripPrefix("/static/",
