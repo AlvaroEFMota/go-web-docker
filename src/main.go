@@ -1,14 +1,14 @@
 package main
 
 import (
-	"github.com/AlvaroEFMota/go-web-docker/handles"
-	"net/http"
-	"html/template"
-	"fmt"
-	"log"
-	"strconv"
 	"database/sql"
+	"fmt"
+	"html/template"
+	"log"
+	"net/http"
+	"strconv"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/AlvaroEFMota/go-web-docker/src/handles"
 )
 //Produto ,estrutura de produtos
 type Produto struct {
@@ -40,17 +40,17 @@ func init()  {
 }
 	
 func main(){
-	
+	handles.Carai()
 	http.Handle("/static/", http.StripPrefix("/static/",
 		http.FileServer(http.Dir("src/static"))))
-	http.HandleFunc("/", handles.index)
+	http.HandleFunc("/", index)
 	http.HandleFunc("/Produto/Show", produtoShow)
 	http.HandleFunc("/Produto/Create", produtoCreateForm)
 	http.HandleFunc("/Produto/Create/Process", produtoCreateProcess)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
-/*
+
 func index(w http.ResponseWriter, r *http.Request){
 	count++
 	fmt.Printf("%d, %s\n",count,r.RemoteAddr)
@@ -63,7 +63,7 @@ func index(w http.ResponseWriter, r *http.Request){
 		Addr: r.RemoteAddr,
 	}
 	tpl.ExecuteTemplate(w, "index.gohtml", d)
-}*/
+}
 
 func produtoCreateForm(w http.ResponseWriter, r *http.Request){
 	
