@@ -74,7 +74,9 @@ func ProdutoCreateProcess(w http.ResponseWriter, r *http.Request){
 	pro.Preco = float32(f64)
 
 	db := database.GetConexao()
-	db.Query("INSERT INTO Produto (nome, preco, descricao)VALUES(?,?,?)",pro.Nome, pro.Preco, pro.Descricao)
+	db.Exec("INSERT INTO Produto (nome, preco, descricao)VALUES(?,?,?)",pro.Nome, pro.Preco, pro.Descricao)
+	
+	//http.Redirect(w,r,"/Produto/Show",http.StatusSeeOther)
 	
 	tpl, err := template.ParseFiles("src/templates/produtoCreated.gohtml")
 	if err != nil {
