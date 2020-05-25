@@ -11,15 +11,8 @@
   </head>
 <body>
 
-  <form action="/Produto/Create/Process" method="POST">
-    <label for="nome">Nome</label>
-    <input type="text" name="nome_produto" id="nome" placeholder="Nome do produto"><br/>
-    <label for="preco">Preço</label>
-    <input type="text" name="preco_produto" id="preco" placeholder="Preço do produto"><br/>
-    <label for="nome">Descrição</label>
-    <input type="text" name="descricao_produto" id="descricao" placeholder="Descrição do produto"><br/>
-    <button type="submit">Salvar</button>
-  </form>
+    <h1>Produto {{.Nome}}, {{.Preco}} Criado<h1>
+    <h4><p> <a href="/Produto/Show">Listar produtos</a></h4>
 
 </body>
 </html>

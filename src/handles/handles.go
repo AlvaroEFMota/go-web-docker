@@ -1,10 +1,9 @@
 package handles
 
-import (
-	"fmt"
-)
-
-//Carai retorna carai
-func Carai() {
-	fmt.Println("Caraioo manow")
+//Produto define a estutura de um produto
+type Produto struct {
+	ID int32
+	Nome string
+	Preco float32
+	Descricao string
 }
