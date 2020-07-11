@@ -8,7 +8,7 @@
       <script src="/static/bootstrap-4.3.1-dist/js/popper.min.js"></script>
       <script src="/static/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
       
-      <title>Atomic</title>
+      <title>{{.ConstData.Title}}</title>
   </head>
 <body>
 <p>Produtos</p>
@@ -16,10 +16,10 @@
 
   <div class="container">
   <div class="card-columns">
-    {{range .}}
+    {{range .Produtos}}
     <div class="card">
       <div class="text-center">
-        <img class="card-img-top" src="static/img/windows10logo.jpg" alt=img_{{.Nome}} style="width:100%">
+        <img class="card-img-top" src="/static/img/windows10logo.jpg" alt=img_{{.Nome}} style="width:100%">
         <div class="card-body">
           <h4 class="card-title">{{.Nome}}</h4>
           <p class="card-text">R$ {{.Preco}}</p>

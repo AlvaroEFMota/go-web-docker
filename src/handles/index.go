@@ -6,7 +6,6 @@ import (
 	"log"
 )
 
-//var tpl *template.Template
 var count int
 
 //Index mostra a pagina inicial

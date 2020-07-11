@@ -13,5 +13,5 @@ func main(){
 	http.HandleFunc("/Produto/Show", handles.ProdutoShow)
 	http.HandleFunc("/Produto/Create", handles.ProdutoCreateForm)
 	http.HandleFunc("/Produto/Create/Process", handles.ProdutoCreateProcess)
-	log.Fatal(http.ListenAndServe(":8081", nil))
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }

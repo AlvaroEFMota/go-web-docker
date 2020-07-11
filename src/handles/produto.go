@@ -9,7 +9,7 @@ import (
 	"github.com/AlvaroEFMota/go-web-docker/src/database"
 )
 
-//ProdutoCreateForm handle para o formulário de criação de produto 
+//ProdutoCreateForm handle para o formulário de criação de produto
 func ProdutoCreateForm(w http.ResponseWriter, r *http.Request){
 	
 	tpl, err := template.ParseFiles("src/templates/produtoCreate.gohtml")
@@ -25,6 +25,8 @@ func ProdutoShow(w http.ResponseWriter, r *http.Request){
 		http.Redirect(w,r,"/",http.StatusSeeOther)
 		return
 	}*/
+
+	var productWebPage ProductWebPage
 	db := database.GetConexao()
 
 	rows, err := db.Query("SELECT id, nome, preco, descricao FROM Produto")
@@ -37,10 +39,13 @@ func ProdutoShow(w http.ResponseWriter, r *http.Request){
 		var pro Produto
 		err := rows.Scan(&pro.ID, &pro.Nome, &pro.Preco, &pro.Descricao)
 		if err != nil {
-			log.Fatal("[database] erro ao extrair os dados com o comando SELECT")
+			log.Fatal("[database] erro ao ler os dados da consulta ao banco de dados")
 		}
 		lista = append(lista,pro)
 	}
+	productWebPage.Produtos = lista;
+	productWebPage.ConstData.Title = "Alvaro 222"
+	productWebPage.ConstData.PathToFiles = "/static"
 
 	
 	//lista = append(lista, Produto{ID: 1, Nome: "Teclado", Preco: 153.7, Descricao: "Teclado mecânico e blablabla"})
@@ -49,7 +54,7 @@ func ProdutoShow(w http.ResponseWriter, r *http.Request){
 	if err != nil {
 		log.Fatal("não foi possível abrir o arquivo [produtoShow.gohtml]")
 	}
-	tpl.Execute(w, lista)
+	tpl.Execute(w, productWebPage)
 }
 
 //ProdutoCreateProcess É o processo que usa o metodo POST para criar um produto
