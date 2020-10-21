@@ -1,6 +1,7 @@
 package handles
 
 import (
+	"database/sql"
 	"html/template"
 	"log"
 	"net/http"
@@ -19,8 +20,8 @@ func ProdutoCreateForm(w http.ResponseWriter, r *http.Request){
 	tpl.Execute(w, nil)
 }
 
-//ProdutoShow mostra os produtos (index dos produtos)
-func ProdutoShow(w http.ResponseWriter, r *http.Request){
+//ProdutoInicio mostra os produtos (index dos produtos)
+func ProdutoInicio(w http.ResponseWriter, r *http.Request){
 	/*if r.Method != "GET" {
 		http.Redirect(w,r,"/",http.StatusSeeOther)
 		return
@@ -50,9 +51,9 @@ func ProdutoShow(w http.ResponseWriter, r *http.Request){
 	
 	//lista = append(lista, Produto{ID: 1, Nome: "Teclado", Preco: 153.7, Descricao: "Teclado mecânico e blablabla"})
 	//lista = append(lista, Produto{ID: 2, Nome: "Mouse", Preco: 47.0, Descricao: "Mouse blablabla"})
-	tpl, err := template.ParseFiles("src/templates/produtoShow.gohtml")
+	tpl, err := template.ParseFiles("src/templates/produto.gohtml")
 	if err != nil {
-		log.Fatal("não foi possível abrir o arquivo [produtoShow.gohtml]")
+		log.Fatal("não foi possível abrir o arquivo [produto.gohtml]")
 	}
 	tpl.Execute(w, productWebPage)
 }
@@ -88,4 +89,34 @@ func ProdutoCreateProcess(w http.ResponseWriter, r *http.Request){
 		log.Fatal("não foi possível abrir o arquivo [produtoCreated.gohtml]")
 	}
 	tpl.Execute(w, pro)
+}
+//ProdutoShow mostra um produto especifico
+func ProdutoShow(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		http.Redirect(w,r,"/",http.StatusSeeOther)
+		return
+	}
+
+	db := database.GetConexao()
+	prodID := r.FormValue("id")
+	var produto Produto
+
+	row := db.QueryRow("SELECT id, nome, preco, descricao FROM Produto WHERE id = ?", prodID)	
+	err := row.Scan(&produto.ID, &produto.Nome, &produto.Preco, &produto.Descricao)
+
+	switch {
+	case err == sql.ErrNoRows:
+		http.NotFound(w, r)
+		return
+	case err != nil:
+		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
+	}
+
+	tpl, err := template.ParseFiles("src/templates/produtoShow.gohtml")
+	if err != nil {
+		log.Fatal("não foi possível abrir o arquivo [produtoCreated.gohtml]")
+	}
+	//tpl.Execute(w, produto)
+	tpl.Execute(w, produto)
+	
 }

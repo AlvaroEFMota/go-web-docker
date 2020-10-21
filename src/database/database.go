@@ -22,7 +22,7 @@ func GetConexao() *sql.DB {
 		if err != nil {
 			panic(err.Error()) // proper error handling instead of panic in your app
 		}
-		fmt.Println("Connected to database!")
+		fmt.Println("\033[32m"+"Connected to database!"+"\033[0m")
 	}
 	return db
 }

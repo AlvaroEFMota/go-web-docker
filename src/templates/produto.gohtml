@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/static/bootstrap-4.3.1-dist/css/bootstrap.min.css" />
+      <script src="/static/bootstrap-4.3.1-dist/js/jquery.min.js"></script>
+      <script src="/static/bootstrap-4.3.1-dist/js/popper.min.js"></script>
+      <script src="/static/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+      
+      <title>{{.ConstData.Title}}</title>
+  </head>
+<body>
+  <center><a href="/Produto/Create" style="margin: 10px;"class="btn btn-success">Criar produto</a></center>
+
+  <div class="container">
+  <div class="card-columns">
+    {{range .Produtos}}
+    <div class="card">
+      <div class="text-center">
+        <a href="/Produto/Show?id={{.ID}}"><img class="card-img-top" src="/static/img/windows10logo.jpg" alt=img_{{.Nome}} style="width:100%"></a>
+        <div class="card-body">
+          <h4 class="card-title">{{.Nome}}</h5>
+          <p class="card-text">R$ {{.Preco}}</p>
+          <p class="card-text">{{.Descricao}}</p>
+          <p><a href="#up" class="btn btn-primary">Update</a> <!--tinha "stretched-link" dentro de class para fazer o botão valoer oara todo o card-->
+          <a href="#del" class="btn btn-danger">Delete</a></p>
+        </div>
+      </div>
+    </div>
+    {{end}}
+  </div>
+</div>
+
+    
+
+</body>
+</html>
