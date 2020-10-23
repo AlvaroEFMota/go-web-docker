@@ -14,5 +14,6 @@ func main(){
 	http.HandleFunc("/Produto/Create", handles.ProdutoCreateForm)
 	http.HandleFunc("/Produto/Create/Process", handles.ProdutoCreateProcess)
 	http.HandleFunc("/Produto/Show", handles.ProdutoShow)
+	http.HandleFunc("/Produto/Delete/Process", handles.ProdutoDeleteProcess)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

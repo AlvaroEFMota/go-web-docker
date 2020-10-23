@@ -4,6 +4,7 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="/static/bootstrap-4.3.1-dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/static/style.css" />
       <script src="/static/bootstrap-4.3.1-dist/js/jquery.min.js"></script>
       <script src="/static/bootstrap-4.3.1-dist/js/popper.min.js"></script>
       <script src="/static/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
@@ -11,9 +12,15 @@
       <title>Show</title>
   </head>
 <body>
-aaaa
-nome {{.Nome}}
-preço {{.Preco}}
+<div class="conteiner">
+  <p>{{.Nome}}</p>
+  <p>R$ {{.Preco}}</p>
+  <p>Descrição</p>
+  <p style="font-size: 70%;">{{.Descricao}}</p>
+  <p>ID: {{.ID}}</p>
+  <p><a href="#up" class="btn btn-primary">Update</a>
+  <a href="/Produto/Delete/Process?id={{.ID}}" class="btn btn-danger">Delete</a></p>
+</div>
 
 </body>
 </html>

@@ -114,9 +114,34 @@ func ProdutoShow(w http.ResponseWriter, r *http.Request) {
 
 	tpl, err := template.ParseFiles("src/templates/produtoShow.gohtml")
 	if err != nil {
-		log.Fatal("não foi possível abrir o arquivo [produtoCreated.gohtml]")
+		log.Fatal("não foi possível abrir o arquivo [produtoShow.gohtml]")
 	}
 	//tpl.Execute(w, produto)
 	tpl.Execute(w, produto)
 	
+}
+
+//ProdutoDeleteProcess deleta um produto com base em seu id
+func ProdutoDeleteProcess(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		http.Redirect(w,r,"/",http.StatusSeeOther)
+		return
+	}
+	
+	
+	db := database.GetConexao()
+	prodID := r.FormValue("id")
+
+	_, err := db.Exec("DELETE FROM Produto WHERE id = ?", prodID)
+	if err != nil {
+		log.Println("Erro ao deletar da tabela Produto onde ID =", prodID)
+	}
+
+	/*tpl, err := template.ParseFiles("src/templates/produtoDeleted.gohtml")
+	if err != nil {
+		log.Fatal("não foi possível abrir o arquivo [produtoDeleted.gohtml]")
+	}
+	tpl.Execute(w, nil)
+	*/
+	http.Redirect(w,r,"/Produto", http.StatusPermanentRedirect)
 }

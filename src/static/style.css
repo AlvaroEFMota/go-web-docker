@@ -1,0 +1,14 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.conteiner {
+    display: flex;
+    margin: 30px;
+    padding: 30px;
+    flex-direction: column;
+    align-items: center;
+    background-color: #eeeeee;
+    font-size: large;
+}
