@@ -3,7 +3,7 @@ package database
 import (
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
-	"fmt"
+	"log"
 )
 
 var db *sql.DB
@@ -22,7 +22,7 @@ func GetConexao() *sql.DB {
 		if err != nil {
 			panic(err.Error()) // proper error handling instead of panic in your app
 		}
-		fmt.Println("\033[32m"+"Connected to database!"+"\033[0m")
+		log.Println("\033[32m"+"Connected to database!"+"\033[0m")
 	}
 	return db
 }

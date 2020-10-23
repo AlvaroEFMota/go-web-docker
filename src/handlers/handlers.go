@@ -1,4 +1,4 @@
-package handles
+package handlers
 
 //Produto define os atibutos de um produto
 type Produto struct {

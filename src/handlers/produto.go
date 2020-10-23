@@ -1,4 +1,4 @@
-package handles
+package handlers
 
 import (
 	"database/sql"
@@ -26,7 +26,6 @@ func ProdutoInicio(w http.ResponseWriter, r *http.Request){
 		http.Redirect(w,r,"/",http.StatusSeeOther)
 		return
 	}*/
-
 	var productWebPage ProductWebPage
 	db := database.GetConexao()
 
