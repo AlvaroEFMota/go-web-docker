@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"strconv"
-
 	"github.com/AlvaroEFMota/go-web-docker/src/database"
 )
 
@@ -143,4 +142,66 @@ func ProdutoDeleteProcess(w http.ResponseWriter, r *http.Request) {
 	tpl.Execute(w, nil)
 	*/
 	http.Redirect(w,r,"/Produto", http.StatusPermanentRedirect)
+}
+
+//ProdutoUpdate redireciona para um formulário para a edição de um produto
+func ProdutoUpdate(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		http.Redirect(w, r," /", http.StatusSeeOther)
+		return
+	}
+	var produto Produto
+	prodID := r.FormValue("id")
+	db := database.GetConexao()
+	produto.ID, _ = strconv.Atoi(prodID)
+
+
+	row := db.QueryRow("SELECT nome, preco, descricao FROM Produto WHERE id = ?", prodID)
+	err := row.Scan(&produto.Nome, &produto.Preco, &produto.Descricao)
+	switch {
+	case err == sql.ErrNoRows:
+		http.NotFound(w, r)
+		return
+	case err != nil:
+		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
+	}
+	
+	tpl, err := template.ParseFiles("src/templates/produtoUpdate.gohtml")
+	if err != nil {
+		log.Println("ERRO ao tentar abrir o aquivo [produtoUpdate.gohtml]")
+	}
+
+	tpl.Execute(w, produto)
+}
+
+//ProdutoUpdateProcess é o processo de atualização de um produto
+func ProdutoUpdateProcess(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "POST" {
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
+	}
+	db := database.GetConexao()
+	var produto Produto
+	produto.ID, _ = strconv.Atoi(r.FormValue("id_produto"))
+	produto.Nome = r.FormValue("nome_produto")
+	f64, _ := strconv.ParseFloat(r.FormValue("preco_produto"), 32)
+	produto.Preco = float32(f64)
+	produto.Descricao = r.FormValue("descricao_produto")
+	log.Println(produto)
+
+	_, err := db.Exec("UPDATE Produto SET nome = ?, preco = ?, descricao = ? WHERE id = ?",
+																	produto.Nome,
+																	produto.Preco,
+																	produto.Descricao,
+																	produto.ID)
+	if err != nil {
+		log.Println("Erro ao deletar da tabela Produto onde ID =", produto.ID)
+	}
+
+	tpl, err := template.ParseFiles("src/templates/produtoUpdated.gohtml")
+	if err != nil {
+		log.Println("ERRO ao abrir o arquivo [produtoUpdated.gohtml]")
+	}
+
+	tpl.Execute(w, produto)
 }

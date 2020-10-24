@@ -23,7 +23,7 @@
           <h4 class="card-title">{{.Nome}}</h5>
           <p class="card-text">R$ {{.Preco}}</p>
           <p class="card-text">{{.Descricao}}</p>
-          <p><a href="#up" class="btn btn-primary">Update</a> <!--tinha "stretched-link" dentro de class para fazer o botão valoer oara todo o card-->
+          <p><a href="/Produto/Update?id={{.ID}}" class="btn btn-primary">Update</a> <!--tinha "stretched-link" dentro de class para fazer o botão valoer oara todo o card-->
           <a href="/Produto/Delete/Process?id={{.ID}}" class="btn btn-danger">Delete</a></p>-
         </div>
       </div>

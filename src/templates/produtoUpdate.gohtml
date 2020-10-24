@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/static/bootstrap-4.3.1-dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/static/style.css" />
+      <script src="/static/bootstrap-4.3.1-dist/js/jquery.min.js"></script>
+      <script src="/static/bootstrap-4.3.1-dist/js/popper.min.js"></script>
+      <script src="/static/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+      
+      <title>Update</title>
+  </head>
+<body>
+<div class="conteiner">
+    <form action="/Produto/Update/Process" method="POST">
+        <p><label for="nome">Nome:</label>
+        <input type="text" value="{{.Nome}}" name="nome_produto"id="nome"></p>
+        <p><label for="preco">Preço:</label>
+        <input type="text" value="{{.Preco}}" name="preco_produto" id="preco"></p>
+        <p><label for="descricao">Descrição:</label></p>
+        <p><textarea rows="4" cols="40" name="descricao_produto" id="descricao" style="font-size: 70%;">{{.Descricao}}</textarea></p>
+        <input type="hidden" name="id_produto" id="id" value="{{.ID}}">
+        <p><button type="submit" class="btn btn-primary">Update</a></p>
+  </form>
+</div>
+
+</body>
+</html>

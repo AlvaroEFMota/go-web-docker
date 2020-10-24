@@ -9,17 +9,12 @@
       <script src="/static/bootstrap-4.3.1-dist/js/popper.min.js"></script>
       <script src="/static/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
       
-      <title>Show</title>
+      <title>Updated</title>
   </head>
 <body>
 <div class="conteiner">
-  <p>{{.Nome}}</p>
-  <p>R$ {{.Preco}}</p>
-  <p>Descrição</p>
-  <p style="font-size: 70%;">{{.Descricao}}</p>
-  <p>ID: {{.ID}}</p>
-  <p><a href="/Produto/Update?id={{.ID}}" class="btn btn-primary">Update</a>
-  <a href="/Produto/Delete/Process?id={{.ID}}" class="btn btn-danger">Delete</a></p>
+  <p>Produto {{.Nome}} Atualizado</p>
+  <p><a href="/Produto" class="btn btn-success">Produtos</a></p>
 </div>
 
 </body>
